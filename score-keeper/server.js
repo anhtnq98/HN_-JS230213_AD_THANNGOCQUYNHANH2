@@ -102,11 +102,43 @@ server.post(`/`, (req, res) => {
 });
 
 server.post(`/round/:id`, (req, res) => {
-    let rounds = JSON.parse(fs.readFileSync(`./data-api/rounds.json`)) || [];
-    if (rounds) {
-        
+  let { roundID } = req.body;
+  let rounds = JSON.parse(fs.readFileSync(`./data-api/rounds.json`)) || [];
+  let roundById = rounds.filter((e, i) => e.roundID === +roundID);
+  if (roundById) {
+    const newId = Math.floor(Math.random() * 1000000000000);
+    const newSmallRound = {
+      id: newId,
+      roundID: roundById,
+      roundNumber: 0,
+      playerOne: {
+        playerOneScore: 0,
+      },
+      playerTwo: {
+        playerTwoScore: 0,
+      },
+      playerThree: {
+        playerThreeScore: 0,
+      },
+      playerFour: {
+        playerFourScore: 0,
+      },
+    };
+    try {
+      rounds.push(newSmallRound);
+      fs.writeFile(`./data-api/rounds.json`, JSON.stringify(rounds), (err) => {
+        if (err) throw err;
+        res.status(201).json({
+          messege: "Create successfully",
+        });
+      });
+    } catch (error) {
+      res.json({
+        error,
+      });
     }
-})
+  }
+});
 
 server.listen(3000, () => {
   console.log("Server is running on port http://localhost:3000");

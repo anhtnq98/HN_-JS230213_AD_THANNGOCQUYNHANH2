@@ -53,10 +53,6 @@
         .then((data) => {
           let currentData = data.filter((e, i) => e.roundID === +id);
 
-          function addRound() {
-            
-          }
-
           renderRounds();
           function renderRounds() {
             let result = currentData
