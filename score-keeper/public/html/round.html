@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style/round.css" />
+    <title>Rounds</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="small-container">
+        <table>
+          <thead class="player-name">
+            <td>#</td>
+            <td id="playerOne">Minh Cường</td>
+            <td id="playerTwo">Thiên Phú</td>
+            <td id="playerThree">Xuân Bách</td>
+            <td id="playerFour">Mạnh Hùng</td>
+          </thead>
+
+          <tbody id="table">
+            <tr class="sum-score">
+              <td>Sum of scores (12)</td>
+              <td>5</td>
+              <td>5</td>
+              <td>5</td>
+              <td>5</td>
+            </tr>
+          </tbody>
+
+          <tr class="tr-round" id="tr-round">
+            <td>Round 1</td>
+            <td><input id="Play" type="number" placeholder="0" /></td>
+            <td><input type="number" placeholder="0" /></td>
+            <td><input type="number" placeholder="0" /></td>
+            <td><input type="number" placeholder="0" /></td>
+          </tr>
+
+          <tfoot>
+            <td>
+              <div class="create-button" onclick="addRound()">Add round</div>
+            </td>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <script>
+      let hrefArray = window.location.href.split("/");
+      let id = hrefArray[hrefArray.length - 1];
+      fetch(`http://localhost:3000/round/`)
+        .then((res) => res.json())
+        .then((data) => {
+          let currentData = data.filter((e, i) => e.roundID === +id);
+
+          function addRound() {
+            
+          }
+
+          renderRounds();
+          function renderRounds() {
+            let result = currentData
+              .slice(1, currentData.length)
+              .map((e, i) => {
+                return `
+              <tr class="tr-round" >
+            <td>Round ${e.roundNumber}</td>
+            <td><input type="number" placeholder="0" /></td>
+            <td><input type="number" placeholder="0" /></td>
+            <td><input type="number" placeholder="0" /></td>
+            <td><input type="number" placeholder="0" /></td>
+             </tr>
+
+            `;
+              });
+            document.getElementById("playerOne").innerHTML =
+              currentData[0].playerOne.playerNameOne;
+            document.getElementById("playerTwo").innerHTML =
+              currentData[0].playerTwo.playerNameTwo;
+            document.getElementById("playerThree").innerHTML =
+              currentData[0].playerThree.playerNameThree;
+            document.getElementById("playerFour").innerHTML =
+              currentData[0].playerFour.playerNameFour;
+            document.getElementById("table").innerHTML = result.join("");
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style/index.css" />
+    <title>Score Keeper</title>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <h1>Score Keeper</h1>
+        <input
+          type="text"
+          id="inputPlayerOne"
+          placeholder="Enter player name"
+        />
+        <input
+          type="text"
+          id="inputPlayerTwo"
+          placeholder="Enter player name"
+        />
+        <input
+          type="text"
+          id="inputPlayerThree"
+          placeholder="Enter player name"
+        />
+        <input
+          type="text"
+          id="inputPlayerFour"
+          placeholder="Enter player name"
+        />
+        <div id="warning"></div>
+        <div onclick="handleAdd()" class="create-button">Create Game</div>
+      </div>
+    </div>
+    <script>
+      async function handleAdd() {
+        let inputPlayerOne = document.getElementById("inputPlayerOne").value;
+        let inputPlayerTwo = document.getElementById("inputPlayerTwo").value;
+        let inputPlayerThree =
+          document.getElementById("inputPlayerThree").value;
+        let inputPlayerFour = document.getElementById("inputPlayerFour").value;
+
+        if (
+          !inputPlayerOne ||
+          !inputPlayerTwo ||
+          !inputPlayerThree ||
+          !inputPlayerFour
+        ) {
+          document.getElementById(
+            "warning"
+          ).innerHTML = `<div class="warning">Please input player name !!</div>`;
+          return;
+        } else {
+          await fetch("http://localhost:3000/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              playerNameOne: inputPlayerOne,
+              playerNameTwo: inputPlayerTwo,
+              playerNameThree: inputPlayerThree,
+              playerNameFour: inputPlayerFour,
+            }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              fetch("http://localhost:3000/round")
+                .then((res) => res.json())
+                .then((data) => {
+                  lastData = data[data.length - 1];
+                  console.log(lastData);
+                  window.location.href = `/round/${lastData.roundID}`;
+                })
+                .catch((err) => console.log(err));
+            })
+            .catch((err) => {
+              res.json(err);
+            });
+        }
+      }
+    </script>
+  </body>
+</html>
