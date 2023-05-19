@@ -102,15 +102,20 @@ server.post(`/`, (req, res) => {
 });
 
 server.post(`/round/:id`, (req, res) => {
-  let { roundID } = req.body;
-  let rounds = JSON.parse(fs.readFileSync(`./data-api/rounds.json`)) || [];
-  let roundById = rounds.filter((e, i) => e.roundID === +roundID);
+  console.log("does it run over it");
+  let { id } = req.params;
+  console.log(req.params, "line107");
+  console.log(id);
+  let rounds = JSON.parse(fs.readFileSync(`./data-api/rounds.json`));
+  console.log(rounds);
+  let roundById = rounds.filter((e, i) => e.roundID == id);
+  console.log(roundById);
   if (roundById) {
     const newId = Math.floor(Math.random() * 1000000000000);
     const newSmallRound = {
       id: newId,
-      roundID: roundById,
-      roundNumber: 0,
+      roundID: roundById[roundById.length - 1].roundID,
+      roundNumber: roundById[roundById.length - 1].roundNumber + 1,
       playerOne: {
         playerOneScore: 0,
       },

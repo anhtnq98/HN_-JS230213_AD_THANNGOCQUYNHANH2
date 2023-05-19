@@ -48,23 +48,33 @@
     <script>
       let hrefArray = window.location.href.split("/");
       let id = hrefArray[hrefArray.length - 1];
-      fetch(`http://localhost:3000/round/`)
-        .then((res) => res.json())
-        .then((data) => {
-          let currentData = data.filter((e, i) => e.roundID === +id);
+      function addRound() {
+        fetch(`http://localhost:3000/round/${id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        renderRounds();
+        console.log("ákjbfj");
+      }
+      renderRounds();
+      function renderRounds() {
+        fetch(`http://localhost:3000/round/`)
+          .then((res) => res.json())
+          .then((data) => {
+            let currentData = data.filter((e, i) => e.roundID === +id);
 
-          renderRounds();
-          function renderRounds() {
             let result = currentData
               .slice(1, currentData.length)
               .map((e, i) => {
                 return `
               <tr class="tr-round" >
             <td>Round ${e.roundNumber}</td>
-            <td><input type="number" placeholder="0" /></td>
-            <td><input type="number" placeholder="0" /></td>
-            <td><input type="number" placeholder="0" /></td>
-            <td><input type="number" placeholder="0" /></td>
+            <td><input type="number" id="playerOneScore" placeholder="0" /></td>
+            <td><input type="number" id="playerTwoScore" placeholder="0" /></td>
+            <td><input type="number" id="playerThreeScore" placeholder="0" /></td>
+            <td><input type="number" id="playerFourScore" placeholder="0" /></td>
              </tr>
 
             `;
@@ -78,8 +88,8 @@
             document.getElementById("playerFour").innerHTML =
               currentData[0].playerFour.playerNameFour;
             document.getElementById("table").innerHTML = result.join("");
-          }
-        });
+          });
+      }
     </script>
   </body>
 </html>
