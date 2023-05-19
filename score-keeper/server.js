@@ -56,6 +56,12 @@ server.get("/round/:id", (req, res) => {
 server.post(`/`, (req, res) => {
   let rounds = JSON.parse(fs.readFileSync(`./data-api/rounds.json`)) || [];
   if (rounds) {
+    const {
+      playerOneScore,
+      playerTwoScore,
+      playerThreeScore,
+      playerFourScore,
+    } = req.body;
     const newId = Math.floor(Math.random() * 1000000000000);
     const { playerNameOne, playerNameTwo, playerNameThree, playerNameFour } =
       req.body;
@@ -64,24 +70,20 @@ server.post(`/`, (req, res) => {
       roundID: Math.floor(Math.random() * 1000000000000),
       roundNumber: 0,
       playerOne: {
-        playerId: Math.floor(Math.random() * 100000000000),
         playerNameOne,
-        playerOneScore: 0,
+        playerOneScore,
       },
       playerTwo: {
-        playerId: Math.floor(Math.random() * 100000000000),
         playerNameTwo,
-        playerTwoScore: 0,
+        playerTwoScore,
       },
       playerThree: {
-        playerId: Math.floor(Math.random() * 100000000000),
         playerNameThree,
-        playerThreeScore: 0,
+        playerThreeScore,
       },
       playerFour: {
-        playerId: Math.floor(Math.random() * 100000000000),
         playerNameFour,
-        playerFourScore: 0,
+        playerFourScore,
       },
     };
 

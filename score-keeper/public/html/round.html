@@ -18,24 +18,17 @@
             <td id="playerThree">Xuân Bách</td>
             <td id="playerFour">Mạnh Hùng</td>
           </thead>
-
-          <tbody id="table">
-            <tr class="sum-score">
-              <td>Sum of scores (12)</td>
-              <td>5</td>
-              <td>5</td>
-              <td>5</td>
-              <td>5</td>
-            </tr>
-          </tbody>
-
-          <tr class="tr-round" id="tr-round">
-            <td>Round 1</td>
-            <td><input id="Play" type="number" placeholder="0" /></td>
-            <td><input type="number" placeholder="0" /></td>
-            <td><input type="number" placeholder="0" /></td>
-            <td><input type="number" placeholder="0" /></td>
+          <tr class="sum-score">
+            <td>Sum of scores (12)</td>
+            <td>5</td>
+            <td>5</td>
+            <td>5</td>
+            <td>5</td>
           </tr>
+
+          <tbody id="table"></tbody>
+
+          <tr class="tr-round" id="tr-round"></tr>
 
           <tfoot>
             <td>
@@ -58,6 +51,7 @@
         renderRounds();
         console.log("ákjbfj");
       }
+
       renderRounds();
       function renderRounds() {
         fetch(`http://localhost:3000/round/`)
@@ -71,10 +65,10 @@
                 return `
               <tr class="tr-round" >
             <td>Round ${e.roundNumber}</td>
-            <td><input type="number" id="playerOneScore" placeholder="0" /></td>
-            <td><input type="number" id="playerTwoScore" placeholder="0" /></td>
-            <td><input type="number" id="playerThreeScore" placeholder="0" /></td>
-            <td><input type="number" id="playerFourScore" placeholder="0" /></td>
+            <td><input type="number" id="playerOneScore" placeholder="${e.playerOne.playerOneScore}" /></td>
+            <td><input type="number" id="playerTwoScore" placeholder="${e.playerTwo.playerTwoScore}" /></td>
+            <td><input type="number" id="playerThreeScore" placeholder="${e.playerThree.playerThreeScore}" /></td>
+            <td><input type="number" id="playerFourScore" placeholder="${e.playerFour.playerFourScore}" /></td>
              </tr>
 
             `;

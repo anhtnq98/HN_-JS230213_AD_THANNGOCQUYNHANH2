@@ -54,28 +54,24 @@
         "roundID": 592204137672,
         "roundNumber": 0,
         "playerOne": {
-            "playerId": 47628502207,
             "playerNameOne": "Khóc",
             "playerOneScore": 0
         },
         "playerTwo": {
-            "playerId": 23097715775,
             "playerNameTwo": "Mất",
             "playerTwoScore": 0
         },
         "playerThree": {
-            "playerId": 22780364408,
             "playerNameThree": "Thôi",
             "playerThreeScore": 0
         },
         "playerFour": {
-            "playerId": 23138656946,
             "playerNameFour": "Huhuhu",
             "playerFourScore": 0
         }
     },
     {
-        "id": 984257119149,
+        "id": 235086233752,
         "roundID": 592204137672,
         "roundNumber": 1,
         "playerOne": {
